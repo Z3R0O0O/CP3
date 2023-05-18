@@ -1,0 +1,51 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.exceptions import FitFailedWarning
+import warnings
+
+# Definir as features e os rótulos
+data = {
+    'JjejumGlicose': [90, 87, 98, 100, 65, 72, 88, 95, 84, 91, 100, 117, 124, 105, 114, 110, 109, 120, 119, 103, 126, 143, 170, 136, 140, 129, 164, 142, 137, 157],
+    'SobrecargaGlicose': [125, 120, 123, 140, 115, 130, 133, 139, 103, 111, 140, 167, 153, 147, 170, 196, 186, 161, 143, 157, 200, 210, 205, 234, 222, 243, 213, 209, 201, 267],
+    'CasualGlicose': [95, 80, 105, 93, 100, 120, 85, 98, 150, 130, 70, 60, 75, 55, 85, 62, 68, 78, 72, 65, 256, 217, 293, 211, 279, 204, 243, 228, 295, 205],
+    'Diagnosticos': ['Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal',
+                  'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída',
+                  'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída', 'Glicose Diminuída',
+                  'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', 
+                  'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', 'Diabetes Mellitus', ]
+}
+dados = pd.DataFrame(data)
+
+# Dividir os dados em features (X) e rótulos (y)
+X = dados.drop('Diagnosticos', axis=1)
+y = dados['Diagnosticos']
+
+# Dividir os dados em conjuntos de treinamento e teste
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Criar o classificador de árvore de decisão
+classifier = DecisionTreeClassifier()
+
+# Treinar o modelo
+classifier.fit(X_train, y_train)
+
+try:
+    glicose_jejum = float(input("Digite o valor de glicemia em jejum: "))
+    glicose_sobrecarregada = float(input("Digite o valor de glicemia pós sobrecarga: "))
+    glicose_casual = float(input("Digite o valor de glicemia casual: "))
+
+    # Fazer a previsão com base nos valores fornecidos pelo usuário
+    previsao = classifier.predict([[glicose_jejum, glicose_sobrecarregada, glicose_casual]])
+    
+    print("Resultado:")
+    if previsao == 'Normal':
+        print("Glicose Normal")
+    elif previsao == 'Glicose Diminuída':
+        print("Glicose Diminuída")
+    else:
+        print("Diabetes Mellitus")
+    print("Essas informações não devem ser usadas como diagnóstico definitivo.")
+    print("Consulte um médico especialista para uma avaliação precisa.")
+except ValueError:
+    print("Valores inválidos fornecidos.")
