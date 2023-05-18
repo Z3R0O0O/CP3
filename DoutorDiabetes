@@ -1,3 +1,9 @@
+'''
+
+
+
+
+'''
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -6,7 +12,7 @@ import warnings
 
 # Definir as features e os rótulos
 data = {
-    'JjejumGlicose': [90, 87, 98, 100, 65, 72, 88, 95, 84, 91, 100, 117, 124, 105, 114, 110, 109, 120, 119, 103, 126, 143, 170, 136, 140, 129, 164, 142, 137, 157],
+    'JejumGlicose': [90, 87, 98, 100, 65, 72, 88, 95, 84, 91, 100, 117, 124, 105, 114, 110, 109, 120, 119, 103, 126, 143, 170, 136, 140, 129, 164, 142, 137, 157],
     'SobrecargaGlicose': [125, 120, 123, 140, 115, 130, 133, 139, 103, 111, 140, 167, 153, 147, 170, 196, 186, 161, 143, 157, 200, 210, 205, 234, 222, 243, 213, 209, 201, 267],
     'CasualGlicose': [95, 80, 105, 93, 100, 120, 85, 98, 150, 130, 70, 60, 75, 55, 85, 62, 68, 78, 72, 65, 256, 217, 293, 211, 279, 204, 243, 228, 295, 205],
     'Diagnosticos': ['Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal',
